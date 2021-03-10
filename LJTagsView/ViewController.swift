@@ -49,6 +49,7 @@ class ViewController: UIViewController, LJTagsViewProtocol , UITextFieldDelegate
         tagsView1.dataSource = ["11111231231231231231231231231231231231231231231231","21111123123123123123123123123123123123123123123131231噜啦啦啦啦噜啦啦啦啦噜啦啦啦啦噜啦啦啦啦噜啦啦啦啦","3","456","12345","555555","12345678","噜啦啦啦啦","噜啦啦啦啦","噜啦啦啦啦","噜啦啦啦啦","噜啦啦啦啦","噜啦啦啦啦","噜啦啦啦啦","噜啦啦啦啦"]
         self.view.addSubview(tagsView1)
         tagsView1.reloadData()
+        
     
     }
     
