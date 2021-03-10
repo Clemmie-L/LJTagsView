@@ -14,9 +14,11 @@ A lightweight label class, adaptive height, width.
     tagsView0.minimumInteritemSpacing = 30;
     self.view.addSubview(tagsView0)
     tagsView0.snp.makeConstraints { (make) in
+    
     make.top.equalToSuperview().offset(150)
     make.left.equalToSuperview().offset(0)
     make.width.equalTo(414)
+    
     }
 
     tagsView0.dataSource = ["11111231231231231231231231231231231231231231231231","21111123123123123123123123123123123123123123123131231噜啦啦啦啦噜啦啦啦啦噜啦啦啦啦噜啦啦啦啦噜啦啦啦啦","3","456","12345","555555","12345678","噜啦啦啦啦"]
@@ -26,6 +28,7 @@ A lightweight label class, adaptive height, width.
 
 ### delegate
 
+    // 可以自定义每个tag的样式
     func tagsViewUpdatePropertyModel(_ tagsView: LJTagsView, text: String, index: NSInteger) -> TagsPropertyModel {
 
     let propertyModel = TagsPropertyModel()
@@ -39,6 +42,7 @@ A lightweight label class, adaptive height, width.
     propertyModel.contentInset = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
     propertyModel.titleLabel.textColor = .white
     return propertyModel
+    
     }
 
     func tagsViewTapAction(_ tagsView: LJTagsView, text: String, index: NSInteger) {
