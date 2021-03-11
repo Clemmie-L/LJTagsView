@@ -1,6 +1,12 @@
 # LJTagsView
 A lightweight label class, adaptive height, width.
 
+## 使用场景
+
+
+# 使用方式
+
+    pod 'LJTagView'
 
 ### 初始化
 
@@ -55,6 +61,6 @@ A lightweight label class, adaptive height, width.
 
     func tagsViewUpdateHeight(_ tagsView: LJTagsView, sumHeight: CGFloat) {
 
-    // do someting
+    // do something
 
     }
