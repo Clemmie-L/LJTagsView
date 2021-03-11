@@ -6,7 +6,7 @@ A lightweight label class, adaptive height, width.
 
 ## 使用方式
 
-    pod 'LJTagView'
+    pod 'LJTagsView'
 
 ### 初始化
 
