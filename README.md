@@ -3,6 +3,8 @@ A lightweight label class, adaptive height, width.
 
 ## 使用场景
 
+![image](https://github.com/Clemmie-L/LJTagsView/blob/main/image/image1.png)
+![image](https://github.com/Clemmie-L/LJTagsView/blob/main/image/image2.png)
 
 ## 使用方式
 
