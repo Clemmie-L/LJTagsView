@@ -25,8 +25,8 @@ class ViewController: UIViewController, LJTagsViewProtocol , UITextFieldDelegate
 //        tagsView0.tagsViewMinHeight = 40
 //        tagsView0.scrollDirection = .horizontal
 //        tagsView0.tagsViewMaxHeight = 300
-        tagsView0.minimumLineSpacing = 30;
-        tagsView0.minimumInteritemSpacing = 30;
+        tagsView0.minimumLineSpacing = 10;
+        tagsView0.minimumInteritemSpacing = 10;
         self.view.addSubview(tagsView0)
         tagsView0.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(150)
@@ -78,10 +78,10 @@ class ViewController: UIViewController, LJTagsViewProtocol , UITextFieldDelegate
             tagsView.reloadData()
         }
     }
-    
-    func tagsViewUpdateHeight(_ tagsView: LJTagsView, sumHeight: CGFloat) {
-        
-    }
+//    
+//    func tagsViewUpdateHeight(_ tagsView: LJTagsView, sumHeight: CGFloat) {
+//        
+//    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 

@@ -73,3 +73,7 @@ A lightweight label class, adaptive height, width.
     // do something
 
     }
+
+## 版本描述
+### 1.0.0 初始版
+### 1.0.1 优化optional protocol 的声明

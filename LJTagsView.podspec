@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "LJTagsView"
-  spec.version      = "1.0.0"
+  spec.version      = "1.0.1"
   spec.summary      = "轻量级的标签库,使用简单"
 
   # This description is used to generate tags and improve search results.
@@ -28,7 +28,7 @@ Pod::Spec.new do |spec|
   优势 :配置简单，适配auto layout，frame 布局
   1.自适应宽高。
   2.自定义滚动方向
-  3.。。。
+  3.场景：view ， cell
                    DESC
 
   spec.homepage     = "https://github.com/Clemmie-L/LJTagsView"

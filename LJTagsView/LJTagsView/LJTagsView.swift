@@ -8,18 +8,23 @@
 import UIKit
 
 /// LJTagsViewProtocol
-@objc public protocol LJTagsViewProtocol : NSObjectProtocol {
+public protocol LJTagsViewProtocol: NSObjectProtocol {
     func tagsViewUpdatePropertyModel(_ tagsView: LJTagsView, text: String,index: NSInteger) -> TagsPropertyModel
-    @objc optional func tagsViewUpdateHeight(_ tagsView: LJTagsView, sumHeight: CGFloat) -> Void
-    @objc optional func tagsViewTapAction(_ tagsView: LJTagsView, text: String,index: NSInteger) -> Void
+    func tagsViewUpdateHeight(_ tagsView: LJTagsView, sumHeight: CGFloat) -> Void
+    func tagsViewTapAction(_ tagsView: LJTagsView, text: String,index: NSInteger) -> Void
+}
+
+extension LJTagsViewProtocol {
+    func tagsViewUpdateHeight(_ tagsView: LJTagsView, sumHeight: CGFloat) { }
+    func tagsViewTapAction(_ tagsView: LJTagsView, text: String,index: NSInteger) { }
+}
+
+public enum tagsViewScrollDirection {
+    case vertical // 垂直
+    case horizontal // 水平
 }
 
 public class LJTagsView: UIView {
-    
-    public enum tagsViewScrollDirection {
-        case vertical // 垂直
-        case horizontal // 水平
-    }
     
     /** 数据源*/
     public var dataSource: [String] = [] {
@@ -63,7 +68,6 @@ public class LJTagsView: UIView {
         super.init(frame: frame)
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
-//        translatesAutoresizingMaskIntoConstraints = false
         addSubview(scrollView)
     }
 
@@ -75,11 +79,6 @@ public class LJTagsView: UIView {
 //MARK: -- setup数据
 extension LJTagsView {
     
-//    public override func layoutSubviews() {
-//        super.layoutSubviews()
-//        reloadData()
-//    }
-       
     public func reloadData() -> Void {
         
         layoutIfNeeded()
@@ -203,7 +202,7 @@ extension LJTagsView {
         }
         
         if let d = tagsViewDelegate {
-            d.tagsViewUpdateHeight?(self, sumHeight: sumHeight)
+            d.tagsViewUpdateHeight(self, sumHeight: sumHeight)
         }
     }
     
@@ -250,7 +249,7 @@ extension LJTagsView {
     @objc func contentViewTapAction(gestureRecongizer: UIGestureRecognizer) {
         let int = gestureRecongizer.view?.tag ?? 0
         if let d = tagsViewDelegate {
-            d.tagsViewTapAction?(self, text: dataSource[int], index: int)
+            d.tagsViewTapAction(self, text: dataSource[int], index: int)
         }
     }
 }
@@ -262,6 +261,7 @@ public class TagsPropertyModel: NSObject {
         case imageAlignmentRight
         case imageAlignmentLeft
     }
+    
 //    var selectContentBgColor: UIColor = .clear
 //    var normalContentBgColor: UIColor = .clear {
 //        didSet {
