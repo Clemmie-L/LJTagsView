@@ -9,16 +9,17 @@ import UIKit
 
 class TableViewCell: UITableViewCell,LJTagsViewProtocol {
     
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        self.tagsView.reloadData()
-//    }
-    
     var model: UIModel? {
-        didSet {
-            titleLabel.text = model?.title
-            tagsView.dataSource = model?.list ?? []
-            self.tagsView.reloadData()
+        willSet {
+            print(newValue)
+            
+            if let model = newValue {
+                titleLabel.text = model.title
+                tagsView.dataSource = model.list!
+                tagsView.isSelect = model.isSelect
+                self.tagsView.reloadData()
+            }
+
         }
     }
     
@@ -66,29 +67,21 @@ class TableViewCell: UITableViewCell,LJTagsViewProtocol {
         tagsView.snp.makeConstraints { (make) in
             make.top.right.left.bottom.equalToSuperview()
         }
+        tagsView.showLine = 2
     }
     
-    func tagsViewUpdatePropertyModel(_ tagsView: LJTagsView, text: String, index: NSInteger) -> TagsPropertyModel {
-        let propertyModel = TagsPropertyModel()
-        propertyModel.contentPadding = 10
-        propertyModel.imageAlignmentMode = .imageAlignmentLeft
-//        propertyModel.contentView.backgroundColor = UIColor (red:  CGFloat (arc4random()%256)/255.0, green:  CGFloat (arc4random()%256)/255.0, blue:  CGFloat (arc4random()%256)/255.0, alpha: 1.0)
-        propertyModel.contentView.backgroundColor = .lightGray
-        propertyModel.contentView.layer.masksToBounds = true
-        propertyModel.contentView.layer.cornerRadius = 4
-        propertyModel.imageView.image = UIImage(named: "search_revoke")
-        propertyModel.imageView.frame.size = CGSize(width:16, height: 16)
-        propertyModel.titleLabel.textColor = .white
-        return propertyModel
-    }
-
-    func tagsViewTapAction(_ tagsView: LJTagsView, text: String, index: NSInteger) {
-        print("text = \(text) , index = \(index)")
+    func tagsViewItemTapAction(_ tagsView: LJTagsView, item: TagsPropertyModel, index: NSInteger) {
+        print("text = \(item.titleLabel.text!) , index = \(index)")
         model?.list?.remove(at: index)
         tagsView.dataSource.remove(at: index)
-        tagsView.reloadData()
     
         let tab:UITableView = self.superview as! UITableView
+        tab.reloadData()
+    }
+    
+    func tagsViewTapAction(_ tagsView: LJTagsView) {
+        let tab:UITableView = self.superview as! UITableView
+        model?.isSelect = !(model?.isSelect)!
         tab.reloadData()
     }
 }

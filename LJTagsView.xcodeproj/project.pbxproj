@@ -7,36 +7,41 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E5DD2B1261EF06900CA4B83 /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E5DD2AF261EF06900CA4B83 /* arrow@2x.png */; };
+		0E5DD2B2261EF06900CA4B83 /* arrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E5DD2B0261EF06900CA4B83 /* arrow@3x.png */; };
+		0E5DD2B8261FF0E000CA4B83 /* InViewDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5DD2B7261FF0E000CA4B83 /* InViewDemoVC.swift */; };
+		0E5DD2BC261FF10900CA4B83 /* InTabViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5DD2BB261FF10900CA4B83 /* InTabViewVC.swift */; };
+		0E5DD2C2261FFB2800CA4B83 /* ExamplesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5DD2C1261FFB2800CA4B83 /* ExamplesViewController.swift */; };
 		0E987AFD25F8A29600C33005 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E987AFC25F8A29600C33005 /* AppDelegate.swift */; };
 		0E987AFF25F8A29600C33005 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E987AFE25F8A29600C33005 /* SceneDelegate.swift */; };
-		0E987B0125F8A29600C33005 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E987B0025F8A29600C33005 /* ViewController.swift */; };
 		0E987B0425F8A29600C33005 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E987B0225F8A29600C33005 /* Main.storyboard */; };
 		0E987B0625F8A29C00C33005 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E987B0525F8A29C00C33005 /* Assets.xcassets */; };
 		0E987B0925F8A29C00C33005 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E987B0725F8A29C00C33005 /* LaunchScreen.storyboard */; };
 		0E987B1725F8A3C100C33005 /* LJTagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E987B1625F8A3C100C33005 /* LJTagsView.swift */; };
-		0E987B1D25F8A44700C33005 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E987B1A25F8A44700C33005 /* TableViewController.swift */; };
-		0E987B1E25F8A44700C33005 /* TableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E987B1B25F8A44700C33005 /* TableViewController.xib */; };
 		0E987B1F25F8A44700C33005 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E987B1C25F8A44700C33005 /* TableViewCell.swift */; };
-		0E987B2625F8A5B000C33005 /* search_revoke@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E987B2425F8A5B000C33005 /* search_revoke@3x.png */; };
-		0E987B2725F8A5B000C33005 /* search_revoke@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E987B2525F8A5B000C33005 /* search_revoke@2x.png */; };
+		0E987B2625F8A5B000C33005 /* delete@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E987B2425F8A5B000C33005 /* delete@3x.png */; };
+		0E987B2725F8A5B000C33005 /* delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E987B2525F8A5B000C33005 /* delete@2x.png */; };
 		419C5E42C0C2762A0960F510 /* Pods_LJTagsView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4C55C498014608CE36BC2A0 /* Pods_LJTagsView.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E5DD2AF261EF06900CA4B83 /* arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow@2x.png"; sourceTree = "<group>"; };
+		0E5DD2B0261EF06900CA4B83 /* arrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow@3x.png"; sourceTree = "<group>"; };
+		0E5DD2B7261FF0E000CA4B83 /* InViewDemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InViewDemoVC.swift; sourceTree = "<group>"; };
+		0E5DD2BB261FF10900CA4B83 /* InTabViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InTabViewVC.swift; sourceTree = "<group>"; };
+		0E5DD2C1261FFB2800CA4B83 /* ExamplesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamplesViewController.swift; sourceTree = "<group>"; };
+		0E5DD2C7261FFF5100CA4B83 /* LJTagsView-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LJTagsView-Bridging-Header.h"; sourceTree = "<group>"; };
 		0E987AF925F8A29600C33005 /* LJTagsView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LJTagsView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E987AFC25F8A29600C33005 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0E987AFE25F8A29600C33005 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0E987B0025F8A29600C33005 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0E987B0325F8A29600C33005 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0E987B0525F8A29C00C33005 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0E987B0825F8A29C00C33005 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0E987B0A25F8A29C00C33005 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E987B1625F8A3C100C33005 /* LJTagsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LJTagsView.swift; sourceTree = "<group>"; };
-		0E987B1A25F8A44700C33005 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
-		0E987B1B25F8A44700C33005 /* TableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewController.xib; sourceTree = "<group>"; };
 		0E987B1C25F8A44700C33005 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
-		0E987B2425F8A5B000C33005 /* search_revoke@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search_revoke@3x.png"; sourceTree = "<group>"; };
-		0E987B2525F8A5B000C33005 /* search_revoke@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search_revoke@2x.png"; sourceTree = "<group>"; };
+		0E987B2425F8A5B000C33005 /* delete@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@3x.png"; sourceTree = "<group>"; };
+		0E987B2525F8A5B000C33005 /* delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@2x.png"; sourceTree = "<group>"; };
 		2CF8FC1A04DFE6F0E26B0BB8 /* Pods-LJTagsView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LJTagsView.release.xcconfig"; path = "Target Support Files/Pods-LJTagsView/Pods-LJTagsView.release.xcconfig"; sourceTree = "<group>"; };
 		E51ADFF4041FB2F72EC48D35 /* Pods-LJTagsView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LJTagsView.debug.xcconfig"; path = "Target Support Files/Pods-LJTagsView/Pods-LJTagsView.debug.xcconfig"; sourceTree = "<group>"; };
 		F4C55C498014608CE36BC2A0 /* Pods_LJTagsView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LJTagsView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,9 +59,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E5DD2B5261FF09400CA4B83 /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				0E5DD2BA261FF0EA00CA4B83 /* InTabViewDemo */,
+				0E5DD2B6261FF0B000CA4B83 /* InViewDemo */,
+			);
+			path = Demo;
+			sourceTree = "<group>";
+		};
+		0E5DD2B6261FF0B000CA4B83 /* InViewDemo */ = {
+			isa = PBXGroup;
+			children = (
+				0E5DD2B7261FF0E000CA4B83 /* InViewDemoVC.swift */,
+			);
+			path = InViewDemo;
+			sourceTree = "<group>";
+		};
+		0E5DD2BA261FF0EA00CA4B83 /* InTabViewDemo */ = {
+			isa = PBXGroup;
+			children = (
+				0E5DD2BB261FF10900CA4B83 /* InTabViewVC.swift */,
+				0E987B1C25F8A44700C33005 /* TableViewCell.swift */,
+			);
+			path = InTabViewDemo;
+			sourceTree = "<group>";
+		};
+		0E5DD2C0261FFAF600CA4B83 /* Examples */ = {
+			isa = PBXGroup;
+			children = (
+				0E987B0225F8A29600C33005 /* Main.storyboard */,
+				0E5DD2C1261FFB2800CA4B83 /* ExamplesViewController.swift */,
+				0E5DD2C7261FFF5100CA4B83 /* LJTagsView-Bridging-Header.h */,
+			);
+			path = Examples;
+			sourceTree = "<group>";
+		};
 		0E987AF025F8A29600C33005 = {
 			isa = PBXGroup;
 			children = (
+				0E5DD2C0261FFAF600CA4B83 /* Examples */,
+				0E5DD2B5261FF09400CA4B83 /* Demo */,
 				0E987AFB25F8A29600C33005 /* LJTagsView */,
 				0E987AFA25F8A29600C33005 /* Products */,
 				3E758D31E5796C7C93A95097 /* Pods */,
@@ -75,14 +118,9 @@
 		0E987AFB25F8A29600C33005 /* LJTagsView */ = {
 			isa = PBXGroup;
 			children = (
-				0E987B1C25F8A44700C33005 /* TableViewCell.swift */,
-				0E987B1A25F8A44700C33005 /* TableViewController.swift */,
-				0E987B1B25F8A44700C33005 /* TableViewController.xib */,
 				0E987B1525F8A32300C33005 /* LJTagsView */,
 				0E987AFC25F8A29600C33005 /* AppDelegate.swift */,
 				0E987AFE25F8A29600C33005 /* SceneDelegate.swift */,
-				0E987B0025F8A29600C33005 /* ViewController.swift */,
-				0E987B0225F8A29600C33005 /* Main.storyboard */,
 				0E987B0525F8A29C00C33005 /* Assets.xcassets */,
 				0E987B0725F8A29C00C33005 /* LaunchScreen.storyboard */,
 				0E987B0A25F8A29C00C33005 /* Info.plist */,
@@ -93,8 +131,10 @@
 		0E987B1525F8A32300C33005 /* LJTagsView */ = {
 			isa = PBXGroup;
 			children = (
-				0E987B2525F8A5B000C33005 /* search_revoke@2x.png */,
-				0E987B2425F8A5B000C33005 /* search_revoke@3x.png */,
+				0E5DD2AF261EF06900CA4B83 /* arrow@2x.png */,
+				0E5DD2B0261EF06900CA4B83 /* arrow@3x.png */,
+				0E987B2525F8A5B000C33005 /* delete@2x.png */,
+				0E987B2425F8A5B000C33005 /* delete@3x.png */,
 				0E987B1625F8A3C100C33005 /* LJTagsView.swift */,
 			);
 			path = LJTagsView;
@@ -150,6 +190,7 @@
 				TargetAttributes = {
 					0E987AF825F8A29600C33005 = {
 						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1240;
 					};
 				};
 			};
@@ -177,11 +218,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E987B0925F8A29C00C33005 /* LaunchScreen.storyboard in Resources */,
-				0E987B2625F8A5B000C33005 /* search_revoke@3x.png in Resources */,
-				0E987B2725F8A5B000C33005 /* search_revoke@2x.png in Resources */,
+				0E987B2625F8A5B000C33005 /* delete@3x.png in Resources */,
+				0E987B2725F8A5B000C33005 /* delete@2x.png in Resources */,
+				0E5DD2B1261EF06900CA4B83 /* arrow@2x.png in Resources */,
 				0E987B0625F8A29C00C33005 /* Assets.xcassets in Resources */,
+				0E5DD2B2261EF06900CA4B83 /* arrow@3x.png in Resources */,
 				0E987B0425F8A29600C33005 /* Main.storyboard in Resources */,
-				0E987B1E25F8A44700C33005 /* TableViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,11 +276,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E987B0125F8A29600C33005 /* ViewController.swift in Sources */,
 				0E987AFD25F8A29600C33005 /* AppDelegate.swift in Sources */,
+				0E5DD2B8261FF0E000CA4B83 /* InViewDemoVC.swift in Sources */,
 				0E987AFF25F8A29600C33005 /* SceneDelegate.swift in Sources */,
+				0E5DD2C2261FFB2800CA4B83 /* ExamplesViewController.swift in Sources */,
 				0E987B1F25F8A44700C33005 /* TableViewCell.swift in Sources */,
-				0E987B1D25F8A44700C33005 /* TableViewController.swift in Sources */,
+				0E5DD2BC261FF10900CA4B83 /* InTabViewVC.swift in Sources */,
 				0E987B1725F8A3C100C33005 /* LJTagsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -387,6 +430,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 364S6M3263;
 				INFOPLIST_FILE = LJTagsView/Info.plist;
@@ -398,6 +442,8 @@
 				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.imanagesystems.LJTagsView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Examples/LJTagsView-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -409,6 +455,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 364S6M3263;
 				INFOPLIST_FILE = LJTagsView/Info.plist;
@@ -420,6 +467,7 @@
 				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.imanagesystems.LJTagsView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Examples/LJTagsView-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

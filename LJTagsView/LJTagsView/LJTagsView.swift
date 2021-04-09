@@ -8,27 +8,25 @@
 import UIKit
 
 /// LJTagsViewProtocol
-public protocol LJTagsViewProtocol: NSObjectProtocol {
-    func tagsViewUpdatePropertyModel(_ tagsView: LJTagsView, text: String,index: NSInteger) -> TagsPropertyModel
-    func tagsViewUpdateHeight(_ tagsView: LJTagsView, sumHeight: CGFloat) -> Void
-    func tagsViewTapAction(_ tagsView: LJTagsView, text: String,index: NSInteger) -> Void
-}
-
-extension LJTagsViewProtocol {
-    func tagsViewUpdateHeight(_ tagsView: LJTagsView, sumHeight: CGFloat) { }
-    func tagsViewTapAction(_ tagsView: LJTagsView, text: String,index: NSInteger) { }
+@objc public protocol LJTagsViewProtocol: NSObjectProtocol {
+    @objc optional func tagsViewUpdatePropertyModel(_ tagsView: LJTagsView, text: String,index: NSInteger) -> TagsPropertyModel
+    @objc optional func tagsViewUpdateHeight(_ tagsView: LJTagsView, sumHeight: CGFloat) -> Void
+    @objc optional func tagsViewTapAction(_ tagsView: LJTagsView) -> Void
+    @objc optional func tagsViewItemTapAction(_ tagsView: LJTagsView, item: TagsPropertyModel,index: NSInteger) -> Void
 }
 
 public enum tagsViewScrollDirection {
-    case vertical // 垂直
-    case horizontal // 水平
+    case vertical // 垂直方向
+    case horizontal // 水平方向
 }
 
 public class LJTagsView: UIView {
     
     /** 数据源*/
     public var dataSource: [String] = [] {
-        didSet { config(oldValues: oldValue) }
+        didSet {
+            config()
+        }
     }
     /** 标签行间距 default is 10*/
     public var minimumLineSpacing: CGFloat = 10.0
@@ -36,8 +34,6 @@ public class LJTagsView: UIView {
     public var minimumInteritemSpacing: CGFloat = 10.0
     /** tagsSupView的边距 default is top:0,letf:0,bottom:0,right:0*/
     public var tagsViewContentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    /** tagsView 宽度 default  is 屏幕宽度  */
-    private var tagsViewWidth = UIScreen.main.bounds.width
     /** tagsView 最小高度 default  is 0.0  */
     public var tagsViewMinHeight: CGFloat = 0.0 {
         didSet {
@@ -54,8 +50,24 @@ public class LJTagsView: UIView {
     }
     /** tagsView 滚动方向 default  is   Vertical*/
     public var scrollDirection : tagsViewScrollDirection = .vertical
-    
+    /** 代理*/
     public weak var tagsViewDelegate : LJTagsViewProtocol?
+    /** 默认显示行数,0 为全部显示， 设置showLine: tagsViewScrollDirection = horizontal 无效*/
+    public var showLine: UInt = 0 {
+        willSet {
+            if newValue > 0 {
+                let tap = UITapGestureRecognizer.init(target: self, action: #selector(tagsViewTapAction))
+                self.addGestureRecognizer(tap)
+            }
+        }
+    }
+    /** showLine 大于0 的时候 显示*/
+    public var arrowImageView: UIImageView = UIImageView.init(image: UIImage.init(named: "arrow")?.withRenderingMode(.alwaysOriginal))
+    /** 是否选中*/
+    public var isSelect = false
+    
+    /** tagsView 宽度 default  is 屏幕宽度  */
+    private var tagsViewWidth = UIScreen.main.bounds.width
     
     /** 记录*/
     private var dealDataSource: [TagsPropertyModel] = [TagsPropertyModel]()
@@ -68,7 +80,9 @@ public class LJTagsView: UIView {
         super.init(frame: frame)
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
+        arrowImageView.isHidden = true
         addSubview(scrollView)
+        addSubview(arrowImageView)
     }
 
     required init?(coder: NSCoder) {
@@ -82,7 +96,6 @@ extension LJTagsView {
     public func reloadData() -> Void {
         
         layoutIfNeeded()
-        tagsViewWidth = frame.width
         
         var tagX: CGFloat = tagsViewContentInset.left
         var tagY: CGFloat = tagsViewContentInset.top
@@ -94,13 +107,34 @@ extension LJTagsView {
         var LableY: CGFloat = 0.0
         var imageY: CGFloat = 0.0
         
-        var nextTagW: CGFloat = 0.0 // 下一个tag的宽度
+        // 下一个tag的宽度
+        var nextTagW: CGFloat = 0.0
+        // 记录当前的行数，
+        var currentLine: UInt = 1
+        // 记录当前行数的全部数据
+        var showLineDataSource: [TagsPropertyModel] = [TagsPropertyModel]()
+        
+        // 设置arroImageView
+        arrowImageView.isHidden = !(dealDataSource.count > 0 && showLine > 0)
+        if arrowImageView.isHidden {
+            tagsViewWidth = frame.width
+        }else {
+            let arrowImageViewSize = arrowImageView.bounds.size
+            arrowImageView.frame = CGRect(x: frame.width - tagsViewContentInset.right - arrowImageViewSize.width, y: tagsViewContentInset.top, width: arrowImageViewSize.width, height: arrowImageViewSize.height)
+            tagsViewWidth = frame.width - arrowImageViewSize.width - 10
+            let angle = isSelect == true ? Double.pi : 0.0
+            UIView.animate(withDuration: 0.3) { [unowned self] in
+                arrowImageView.transform = CGAffineTransform.init(rotationAngle: CGFloat(angle))
+            }
+        }
         
         for (index,propertyModel) in dealDataSource.enumerated() {
             
-            let tap = UITapGestureRecognizer(target: self, action: #selector(contentViewTapAction(gestureRecongizer:)))
+            if  tagsViewDelegate?.responds(to: #selector(tagsViewDelegate?.tagsViewItemTapAction(_:item:index:))) ?? false {
+                let tap = UITapGestureRecognizer(target: self, action: #selector(contentViewTapAction(gestureRecongizer:)))
+                propertyModel.contentView.addGestureRecognizer(tap)
+            }
             propertyModel.contentView.tag = index
-            propertyModel.contentView.addGestureRecognizer(tap)
             
             tagW = tagWidth(propertyModel)
             
@@ -145,6 +179,10 @@ extension LJTagsView {
                 propertyModel.imageView.frame = CGRect(x: propertyModel.titleLabel.frame.maxX + propertyModel.tagContentPadding, y: imageY, width: propertyModel.imageWidth, height: propertyModel.imageHeight)
             }
             
+            if showLine >= currentLine {
+                showLineDataSource.append(propertyModel)
+            }
+            
             // 下一个tag，X,Y位置
             let nextTagX = tagX + tagW + minimumInteritemSpacing
             
@@ -157,6 +195,7 @@ extension LJTagsView {
                     nextTagW = tagWidth(nextPropertyModel)
                 }
                 if nextTagX + nextTagW + tagsViewContentInset.right > tagsViewWidth {
+                    currentLine = currentLine + 1
                     tagX = tagsViewContentInset.left
                     let lastObjFrame = propertyModel.contentView.frame
                     tagY = lastObjFrame.maxY + minimumLineSpacing
@@ -171,11 +210,12 @@ extension LJTagsView {
         var sumHeight = tagsViewMinHeight
         var scrollContentSize = CGSize.zero
         var viewContentSize = CGSize(width: tagsViewWidth, height: sumHeight)
+        
         switch scrollDirection {
         case .vertical:
         
             if dealDataSource.count != 0 {
-                let lastPropertyModel = dealDataSource.last
+                let lastPropertyModel = showLine > 0 && isSelect == false ? showLineDataSource.last : dealDataSource.last
                 sumHeight = lastPropertyModel!.contentView.frame.maxY + tagsViewContentInset.bottom
                 scrollContentSize = CGSize(width: tagsViewWidth, height: sumHeight)
                 sumHeight = sumHeight > tagsViewMaxHeight ? tagsViewMaxHeight : sumHeight
@@ -191,6 +231,7 @@ extension LJTagsView {
                 viewContentSize = scrollContentSize
             }
         }
+        
         frame.size.height = sumHeight
         scrollView.frame = CGRect(x: 0, y: 0, width: tagsViewWidth, height: sumHeight)
         scrollView.contentSize = scrollContentSize;
@@ -202,7 +243,7 @@ extension LJTagsView {
         }
         
         if let d = tagsViewDelegate {
-            d.tagsViewUpdateHeight(self, sumHeight: sumHeight)
+            d.tagsViewUpdateHeight?(self, sumHeight: sumHeight)
         }
     }
     
@@ -214,15 +255,16 @@ extension LJTagsView {
   //MARK: -- private
 extension LJTagsView {
     
-    private func config(oldValues: [String]) {
+    private func config() {
         
          dealDataSource.removeAll()
          scrollView.subviews.forEach {  $0.removeFromSuperview() }
          for (index, value) in dataSource.enumerated() {
-             var propertyModel = TagsPropertyModel()
-             if let d = tagsViewDelegate {
-                 propertyModel = d.tagsViewUpdatePropertyModel(self, text: value, index: index)
+            var propertyModel:TagsPropertyModel!
+            if tagsViewDelegate?.responds(to: #selector(tagsViewDelegate?.tagsViewUpdatePropertyModel(_:text:index:))) ?? false  {
+                propertyModel = (tagsViewDelegate?.tagsViewUpdatePropertyModel!(self, text: value, index: index))!
              }
+            if propertyModel == nil { propertyModel = TagsPropertyModel() }
              propertyModel.titleLabel.text = value
              scrollView.addSubview(propertyModel.contentView)
              dealDataSource.append(propertyModel)
@@ -249,7 +291,15 @@ extension LJTagsView {
     @objc func contentViewTapAction(gestureRecongizer: UIGestureRecognizer) {
         let int = gestureRecongizer.view?.tag ?? 0
         if let d = tagsViewDelegate {
-            d.tagsViewTapAction(self, text: dataSource[int], index: int)
+            let item = dealDataSource[int];
+            item.isSelected = !item.isSelected
+            d.tagsViewItemTapAction?(self, item: dealDataSource[int], index: int)
+        }
+    }
+    
+    @objc func tagsViewTapAction() {
+        if let d = tagsViewDelegate {
+            d.tagsViewTapAction?(self)
         }
     }
 }
@@ -262,29 +312,24 @@ public class TagsPropertyModel: NSObject {
         case imageAlignmentLeft
     }
     
-//    var selectContentBgColor: UIColor = .clear
-//    var normalContentBgColor: UIColor = .clear {
-//        didSet {
-//            contentView.backgroundColor = normalContentBgColor
-//        }
-//    }
-//    var selectImage: UIImage? = nil
-//    var normalImage: UIImage? = nil {
-//        didSet {
-//            imageView.image = normalImage
-//        }
-//    }
-//    var isSelected: Bool = false {
-//        didSet {
-//            if isSelected == true {
-//                contentView.backgroundColor = selectContentBgColor
-//                imageView.image = selectImage
-//            }else {
-//                contentView.backgroundColor = normalContentBgColor
-//                imageView.image = normalImage
-//            }
-//        }
-//    }
+    public var normalImage:UIImage? {
+        willSet {
+            if selectIedImage == nil { selectIedImage = newValue }
+            if isSelected == false { imageView.image = newValue }
+        }
+    }
+    
+    public var selectIedImage:UIImage? {
+        willSet {
+            if isSelected == true { imageView.image = newValue }
+        }
+    }
+    
+    public var isSelected: Bool = false {
+        willSet {
+            imageView.image = newValue ? selectIedImage : normalImage
+        }
+    }
     
     /** image 和title 的间距 默认为8.0 ,设置image时生效*/
     public var contentPadding: CGFloat = 8.0
@@ -297,10 +342,12 @@ public class TagsPropertyModel: NSObject {
     public var contentView = UIView()
     /** 标题*/
     public var titleLabel = UILabel()
-    /** 图片*/
-    public var imageView = UIImageView()
     /** 图片的位置*/
     public var imageAlignmentMode : TagImageViewAlignmentMode = .imageAlignmentRight
+    
+    /** 图片*/
+    fileprivate var imageView = UIImageView()
+    
     /** 默认为 image 大小*/
     fileprivate var imageWidth: CGFloat {
         guard let imageW = imageView.image?.size.width else {
@@ -330,9 +377,12 @@ public class TagsPropertyModel: NSObject {
         contentView.addSubview(titleLabel)
         contentView.addSubview(imageView)
         /** 每个tagtext 默认值*/
+        contentView.backgroundColor = .darkGray
+        contentView.layer.masksToBounds = true
+        contentView.layer.cornerRadius = 5
         titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         titleLabel.text = ""
-        titleLabel.textColor = .black
+        titleLabel.textColor = .white
         titleLabel.numberOfLines = 0
     }
 }
