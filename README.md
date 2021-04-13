@@ -3,9 +3,7 @@ A lightweight label class, adaptive height, width.
 
 ## 使用场景
 
-![image](https://github.com/Clemmie-L/LJTagsView/blob/main/image/image1.png)
-![image](https://github.com/Clemmie-L/LJTagsView/blob/main/image/image2.png)
-
+![image](https://github.com/Clemmie-L/LJTagsView/blob/main/image/ezgif-2-923de88307ee.gif)
 
 ## 使用方式
 
@@ -34,40 +32,29 @@ A lightweight label class, adaptive height, width.
     
     }
 
-    tagsView0.dataSource = ["11111231231231231231231231231231231231231231231231","21111123123123123123123123123123123123123123123131231噜啦啦啦啦噜啦啦啦啦噜啦啦啦啦噜啦啦啦啦噜啦啦啦啦","3","456","12345","555555","12345678","噜啦啦啦啦"]
+    tagsView0.dataSource = ["Listing ID","Tower","Sole Agency Type","Have Keys","New Development","Tags","Big landlord","Street Address","Currency","Price per unit","Price per unit(Gross)","Price per unit(Saleable)","Size(Gross)","Size(Saleable)","Status","Register","Landlord","SSD","Agent","Floor Alias","Unit Alias","Unit Balcony","Tower Type","Building Age","Segment","Car Park","Is Coop","SPV","Pet Friendly","View Type","Property Type"]
 
     // 最后reload
     tagsView0.reloadData()
 
 ### delegate
 
-
-    // 可以自定义每个tag的样式
-    func tagsViewUpdatePropertyModel(_ tagsView: LJTagsView, text: String, index: NSInteger) -> TagsPropertyModel {
-
-    let propertyModel = TagsPropertyModel()
-    
-    propertyModel.contentPadding = 10
-    propertyModel.imageAlignmentMode = .imageAlignmentLeft
-    propertyModel.contentView.backgroundColor = UIColor (red:  CGFloat (arc4random()%256)/255.0, green:  CGFloat (arc4random()%256)/255.0, blue:  CGFloat (arc4random()%256)/255.0, alpha: 1.0)
-    propertyModel.contentView.layer.masksToBounds = true
-    propertyModel.contentView.layer.cornerRadius = 4
-    propertyModel.imageView.image = UIImage(named: "search_revoke")
-    propertyModel.imageView.frame.size = CGSize(width:16, height: 16)
-    propertyModel.contentInset = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
-    propertyModel.titleLabel.textColor = .white
-    
-    return propertyModel
-
+    /** 设置每个tag的属性，包含UI ，对应的属性*/
+    func tagsViewUpdatePropertyModel(_ tagsView: LJTagsView, item: TagsPropertyModel, index: NSInteger) {
+        item.contentView.backgroundColor = UIColor.darkGray
+        item.contentInset = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+        item.normalImage = UIImage(named: "select_not")
+        item.selectIedImage = UIImage(named: "selected")
+        item.imageSize = CGSize(width: 10, height: 10)
+        item.imageAlignmentMode = .left
     }
 
     // 点击事情
-    func tagsViewTapAction(_ tagsView: LJTagsView, text: String, index: NSInteger) {
-
-    print("text = \(text) , index = \(index)")
-    tagsView.dataSource.remove(at: index)
-    tagsView.reloadData()
-    
+    func tagsViewItemTapAction(_ tagsView: LJTagsView, item: TagsPropertyModel, index: NSInteger) {
+    // 删除事件
+        dataSource.remove(at: index)
+        tagsView.dataSource.remove(at: index)
+        tagsView.reloadData()
     }
 
     // 返回高度
@@ -80,3 +67,5 @@ A lightweight label class, adaptive height, width.
 ## 版本描述
 ### 1.0.0 初始版
 ### 1.0.1 优化optional protocol 的声明
+### 1.0.2 添加showline 属性 ：实现展开和收合功能
+### 1.0.3 添加[TagsPropertyModel] 数据源，方便初始化
