@@ -9,11 +9,14 @@ import UIKit
 
 /// LJTagsViewProtocol
 @objc public protocol LJTagsViewProtocol: NSObjectProtocol {
-    @objc optional func tagsViewUpdatePropertyModel(_ tagsView: LJTagsView, text: String,index: NSInteger) -> TagsPropertyModel
+
+    @objc optional func tagsViewUpdatePropertyModel(_ tagsView: LJTagsView, item: TagsPropertyModel,index: NSInteger) -> Void
     @objc optional func tagsViewUpdateHeight(_ tagsView: LJTagsView, sumHeight: CGFloat) -> Void
     @objc optional func tagsViewTapAction(_ tagsView: LJTagsView) -> Void
     @objc optional func tagsViewItemTapAction(_ tagsView: LJTagsView, item: TagsPropertyModel,index: NSInteger) -> Void
+    
 }
+
 
 public enum tagsViewScrollDirection {
     case vertical // 垂直方向
@@ -28,6 +31,14 @@ public class LJTagsView: UIView {
             config()
         }
     }
+    
+    /** 数据源*/
+    public var modelDataSource: [TagsPropertyModel] = [] {
+        didSet {
+            config()
+        }
+    }
+    
     /** 标签行间距 default is 10*/
     public var minimumLineSpacing: CGFloat = 10.0
     /** 标签的间距 default is 10*/
@@ -51,7 +62,7 @@ public class LJTagsView: UIView {
     /** tagsView 滚动方向 default  is   Vertical*/
     public var scrollDirection : tagsViewScrollDirection = .vertical
     /** 代理*/
-    public weak var tagsViewDelegate : LJTagsViewProtocol?
+    open weak var tagsViewDelegate : LJTagsViewProtocol?
     /** 默认显示行数,0 为全部显示， 设置showLine: tagsViewScrollDirection = horizontal 无效*/
     public var showLine: UInt = 0 {
         willSet {
@@ -140,29 +151,22 @@ extension LJTagsView {
             
             switch scrollDirection {
             case .vertical:
-                
                 if tagW > tagsViewWidth - tagsViewContentInset.left - tagsViewContentInset.right {
                     tagW = tagsViewWidth - tagsViewContentInset.left - tagsViewContentInset.right
                 }
-                
-                labelW = tagW - (propertyModel.contentInset.left + propertyModel.contentInset.right + propertyModel.tagContentPadding + propertyModel.imageWidth)
-                
-                labelH = tagHeight(propertyModel, width: labelW)
-                
-                tagH = labelH + propertyModel.contentInset.top + propertyModel.contentInset.bottom
-                
-                tagH = tagH < propertyModel.minHeight ? propertyModel.minHeight : tagH
-                
-                tagH = tagH < propertyModel.imageHeight ? propertyModel.imageHeight : tagH
-                
             case .horizontal:
-                
-                labelW = tagW - (propertyModel.contentInset.left + propertyModel.contentInset.right + propertyModel.tagContentPadding + propertyModel.imageWidth)
-                labelH = tagHeight(propertyModel, width: labelW)
-                tagH = labelH + propertyModel.contentInset.top + propertyModel.contentInset.bottom
-                tagH = tagH < propertyModel.minHeight ? propertyModel.minHeight : tagH
-                
+                break
             }
+            
+            labelW = tagW - (propertyModel.contentInset.left + propertyModel.contentInset.right + propertyModel.tagContentPadding + propertyModel.imageWidth)
+            
+            labelH = tagHeight(propertyModel, width: labelW)
+            
+            let contentH = labelH < propertyModel.imageHeight ? propertyModel.imageHeight : labelH
+            
+            tagH = contentH + propertyModel.contentInset.top + propertyModel.contentInset.bottom
+            
+            tagH = tagH < propertyModel.minHeight ? propertyModel.minHeight : tagH
             
             LableY = (tagH - labelH) * 0.5
             
@@ -171,10 +175,10 @@ extension LJTagsView {
             propertyModel.contentView.frame = CGRect(x: tagX, y: tagY, width: tagW, height: tagH)
             
             switch propertyModel.imageAlignmentMode {
-            case .imageAlignmentLeft:
+            case .left:
                 propertyModel.imageView.frame = CGRect(x: propertyModel.contentInset.left, y: imageY, width: propertyModel.imageWidth, height: propertyModel.imageHeight)
                 propertyModel.titleLabel.frame = CGRect(x:  propertyModel.imageView.frame.maxX + propertyModel.tagContentPadding, y: LableY, width: labelW, height: labelH)
-            case .imageAlignmentRight:
+            case .right:
                 propertyModel.titleLabel.frame = CGRect(x: propertyModel.contentInset.left, y: LableY, width: labelW, height: labelH)
                 propertyModel.imageView.frame = CGRect(x: propertyModel.titleLabel.frame.maxX + propertyModel.tagContentPadding, y: imageY, width: propertyModel.imageWidth, height: propertyModel.imageHeight)
             }
@@ -207,6 +211,11 @@ extension LJTagsView {
             }
         }
         
+        // 最大收合数 等于 总数量 说明 不需要展开 隐藏箭头图标
+        if showLineDataSource.count == dealDataSource.count {
+            arrowImageView.isHidden = true
+        }
+       
         var sumHeight = tagsViewMinHeight
         var scrollContentSize = CGSize.zero
         var viewContentSize = CGSize(width: tagsViewWidth, height: sumHeight)
@@ -242,9 +251,8 @@ extension LJTagsView {
             invalidateIntrinsicContentSize()
         }
         
-        if let d = tagsViewDelegate {
-            d.tagsViewUpdateHeight?(self, sumHeight: sumHeight)
-        }
+        tagsViewDelegate?.tagsViewUpdateHeight?(self, sumHeight: sumHeight)
+        
     }
     
     public override var intrinsicContentSize: CGSize {
@@ -259,16 +267,24 @@ extension LJTagsView {
         
          dealDataSource.removeAll()
          scrollView.subviews.forEach {  $0.removeFromSuperview() }
-         for (index, value) in dataSource.enumerated() {
-            var propertyModel:TagsPropertyModel!
-            if tagsViewDelegate?.responds(to: #selector(tagsViewDelegate?.tagsViewUpdatePropertyModel(_:text:index:))) ?? false  {
-                propertyModel = (tagsViewDelegate?.tagsViewUpdatePropertyModel!(self, text: value, index: index))!
-             }
-            if propertyModel == nil { propertyModel = TagsPropertyModel() }
-             propertyModel.titleLabel.text = value
-             scrollView.addSubview(propertyModel.contentView)
-             dealDataSource.append(propertyModel)
-         }
+        
+        if dataSource.count > 0 {
+            for (index, value) in dataSource.enumerated() {
+                let propertyModel = TagsPropertyModel()
+                propertyModel.titleLabel.text = value
+                if let d = tagsViewDelegate  {
+                    d.tagsViewUpdatePropertyModel?(self, item: propertyModel, index: index)
+                }
+                scrollView.addSubview(propertyModel.contentView)
+                dealDataSource.append(propertyModel)
+            }
+        }else {
+            for (_,item) in modelDataSource.enumerated() {
+                scrollView.addSubview(item.contentView)
+                dealDataSource.append(item)
+            }
+        }
+    
      }
 
     private func tagWidth(_ model: TagsPropertyModel) -> CGFloat {
@@ -298,9 +314,7 @@ extension LJTagsView {
     }
     
     @objc func tagsViewTapAction() {
-        if let d = tagsViewDelegate {
-            d.tagsViewTapAction?(self)
-        }
+        tagsViewDelegate?.tagsViewTapAction?(self)
     }
 }
 
@@ -308,33 +322,39 @@ extension LJTagsView {
 public class TagsPropertyModel: NSObject {
     
     public enum TagImageViewAlignmentMode {
-        case imageAlignmentRight
-        case imageAlignmentLeft
+        case right
+        case left
     }
     
+    /** 正常的图片*/
     public var normalImage:UIImage? {
         willSet {
             if selectIedImage == nil { selectIedImage = newValue }
             if isSelected == false { imageView.image = newValue }
         }
     }
-    
+    /** 选中状态的图片*/
     public var selectIedImage:UIImage? {
         willSet {
             if isSelected == true { imageView.image = newValue }
         }
     }
-    
+    /** 图片的大小*/
+    public var imageSize: CGSize {
+        willSet {
+            imageView.frame.size = newValue
+        }
+    }
+    /** 是否选中*/
     public var isSelected: Bool = false {
         willSet {
             imageView.image = newValue ? selectIedImage : normalImage
         }
     }
-    
     /** image 和title 的间距 默认为8.0 ,设置image时生效*/
     public var contentPadding: CGFloat = 8.0
-    /** 每个tag 最小高度 default is 30 */
-    public var minHeight: CGFloat  { 30.0 }
+    /** 每个tag 最小高度 default is 0 */
+    public var minHeight: CGFloat  { 0 }
     /** 每个tag的边距 default is top:5,letf:5,bottom:5,right:5*/
     public var contentInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
     
@@ -343,7 +363,7 @@ public class TagsPropertyModel: NSObject {
     /** 标题*/
     public var titleLabel = UILabel()
     /** 图片的位置*/
-    public var imageAlignmentMode : TagImageViewAlignmentMode = .imageAlignmentRight
+    public var imageAlignmentMode : TagImageViewAlignmentMode = .right
     
     /** 图片*/
     fileprivate var imageView = UIImageView()
@@ -373,7 +393,6 @@ public class TagsPropertyModel: NSObject {
         }
     }
     public override init() {
-        super.init()
         contentView.addSubview(titleLabel)
         contentView.addSubview(imageView)
         /** 每个tagtext 默认值*/
@@ -384,6 +403,8 @@ public class TagsPropertyModel: NSObject {
         titleLabel.text = ""
         titleLabel.textColor = .white
         titleLabel.numberOfLines = 0
+        imageSize = CGSize.zero
+        super.init()
     }
 }
 

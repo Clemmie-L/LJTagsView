@@ -11,15 +11,12 @@ class TableViewCell: UITableViewCell,LJTagsViewProtocol {
     
     var model: UIModel? {
         willSet {
-            print(newValue)
-            
             if let model = newValue {
                 titleLabel.text = model.title
                 tagsView.dataSource = model.list!
                 tagsView.isSelect = model.isSelect
                 self.tagsView.reloadData()
             }
-
         }
     }
     
@@ -77,6 +74,7 @@ class TableViewCell: UITableViewCell,LJTagsViewProtocol {
     
         let tab:UITableView = self.superview as! UITableView
         tab.reloadData()
+        
     }
     
     func tagsViewTapAction(_ tagsView: LJTagsView) {
