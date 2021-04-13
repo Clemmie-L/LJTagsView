@@ -144,7 +144,9 @@ extension LJTagsView {
             if  tagsViewDelegate?.responds(to: #selector(tagsViewDelegate?.tagsViewItemTapAction(_:item:index:))) ?? false {
                 let tap = UITapGestureRecognizer(target: self, action: #selector(contentViewTapAction(gestureRecongizer:)))
                 propertyModel.contentView.addGestureRecognizer(tap)
+                
             }
+            
             propertyModel.contentView.tag = index
             
             tagW = tagWidth(propertyModel)
