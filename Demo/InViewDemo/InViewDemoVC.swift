@@ -24,11 +24,9 @@ class InViewDemoVC: UIViewController {
     
     var type: TagsViewType = TagsViewType.tagsViewFrameLayout
     
-    var dataSource = ["Listing ID","Tower","Sole Agency Type","Have Keys","New Development","Tags","Big landlord","Street Address","Currency","Price per unit","Price per unit(Gross)","Price per unit(Saleable)","Size(Gross)","Size(Saleable)","Status","Register","Landlord","SSD","Agent","Floor Alias","Unit Alias","Unit Balcony","Tower Type","Building Age","Segment","Car Park","Is Coop","SPV","Pet Friendly","View Type","Property Type"]
+    var dataSource = ["Listing ID","Tower","Sole Agency Type","Have Keys","New Development","Tags","Big landlord","Street Address","Currency","Price per unit","Price per unit(Gross)","Price per unit(Saleable)","Size(Gross)","Size(Saleable)","Status","Register","Landlord","SSD","Agent","Floor Alias","Unit Alias","Unit Balcony","Tower Type","Building Age","Segment","Car Park","Is Coop","SPV","Pet Friendly","View Type","Property Type","123"]
     
     var modelDataSource: [TagsPropertyModel] = [TagsPropertyModel]()
-    
-//    var dataSource = ["Listing ID","Tower"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,12 +42,16 @@ class InViewDemoVC: UIViewController {
             make.left.right.equalToSuperview().offset(0)
         }
         
-        for _ in 0...30 {
+        for index in 0...30 {
+            
             let item = dataSource[Int(arc4random()) % dataSource.count]
             let model = TagsPropertyModel()
             model.imageAlignmentMode = .right
             model.titleLabel.text = item
+            if index == 0 || index == 20 { model.titleLabel.font = .systemFont(ofSize: 20)  }
+            if index == 30 { model.titleLabel.font = .systemFont(ofSize: 40)  }
             modelDataSource.append(model)
+            
         }
        
         switch type {
@@ -71,8 +73,8 @@ class InViewDemoVC: UIViewController {
 extension InViewDemoVC {
     //
     func setupTagsViewFrameLayout() {
+        
         tagsView.dataSource = dataSource
-        // 最后reload
         tagsView.tagsViewMaxHeight = k_screenH - 20 - 40 - 80 - 80
         tagsView.reloadData()
         
@@ -99,6 +101,7 @@ extension InViewDemoVC {
 // tagsViewChangeScrollDirection
 extension InViewDemoVC {
     func setupTagsViewChangeScrollDirection() {
+        
         tagsView.modelDataSource = modelDataSource
         tagsView.tagsViewMinHeight = 40
         tagsView.scrollDirection = .vertical
@@ -134,8 +137,8 @@ extension InViewDemoVC {
 extension InViewDemoVC {
     
     func setupTagsViewShowLine() {
+        
         tagsView.dataSource = dataSource
-        // 最后reload
         tagsView.showLine = 2
         tagsView.reloadData()
     }
@@ -169,6 +172,7 @@ extension InViewDemoVC: LJTagsViewProtocol {
     /** 设置每个tag的属性，包含UI ，对应的属性*/
     func tagsViewUpdatePropertyModel(_ tagsView: LJTagsView, item: TagsPropertyModel, index: NSInteger) {
 
+        if (index  == 15) {item.minHeight = 40}
         item.imageAlignmentMode = .left
         switch type {
         case .tagsViewFrameLayout:

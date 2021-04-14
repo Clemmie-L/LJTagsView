@@ -20,12 +20,8 @@ A lightweight label class, adaptive height, width.
     tagsView0.minimumLineSpacing = 30;
     tagsView0.minimumInteritemSpacing = 30;
     self.view.addSubview(tagsView0)
-    tagsView0.snp.makeConstraints { (make) in
-
-    make.top.equalToSuperview().offset(150)
-    make.left.equalToSuperview().offset(0)
-    make.width.equalTo(414)
     
+    tagsView0.snp.makeConstraints { (make) in
     make.top.equalToSuperview().offset(150)
     make.left.equalToSuperview().offset(0)
     make.width.equalTo(414)
@@ -69,3 +65,4 @@ A lightweight label class, adaptive height, width.
 ### 1.0.1 优化optional protocol 的声明
 ### 1.0.2 添加showline 属性 ：实现展开和收合功能
 ### 1.0.3 添加[TagsPropertyModel] 数据源，方便初始化
+### 1.0.4 修复每个tag 的minHeight 不统一造成布局错乱

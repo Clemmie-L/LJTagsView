@@ -63,7 +63,7 @@ public class LJTagsView: UIView {
     public var scrollDirection : tagsViewScrollDirection = .vertical
     /** 代理*/
     open weak var tagsViewDelegate : LJTagsViewProtocol?
-    /** 默认显示行数,0 为全部显示， 设置showLine: tagsViewScrollDirection = horizontal 无效*/
+    /** 默认显示行数;  0 为全部显示， 设置 tagsViewScrollDirection = horizontal, showLine 无效*/
     public var showLine: UInt = 0 {
         willSet {
             if newValue > 0 {
@@ -203,7 +203,13 @@ extension LJTagsView {
                 if nextTagX + nextTagW + tagsViewContentInset.right > tagsViewWidth {
                     currentLine = currentLine + 1
                     tagX = tagsViewContentInset.left
-                    let lastObjFrame = propertyModel.contentView.frame
+                    
+                    let subDealDataSource = dealDataSource[0...index]
+                    let maxYModel = subDealDataSource.max { (m1, m2) -> Bool in
+                       return m1.contentView.frame.maxY < m2.contentView.frame.maxY
+                    }
+                    
+                    let lastObjFrame = maxYModel!.contentView.frame
                     tagY = lastObjFrame.maxY + minimumLineSpacing
                 }else {
                     tagX = nextTagX
@@ -226,7 +232,14 @@ extension LJTagsView {
         case .vertical:
         
             if dealDataSource.count != 0 {
-                let lastPropertyModel = showLine > 0 && isSelect == false ? showLineDataSource.last : dealDataSource.last
+                var lastPropertyModel: TagsPropertyModel!
+                
+                if showLine > 0 && isSelect == false {
+                    lastPropertyModel = filterMaxYModel(dataSource: showLineDataSource, standardModel: showLineDataSource.last!)
+                }else {
+                    lastPropertyModel = filterMaxYModel(dataSource: dealDataSource, standardModel: dealDataSource.last!)
+                }
+                
                 sumHeight = lastPropertyModel!.contentView.frame.maxY + tagsViewContentInset.bottom
                 scrollContentSize = CGSize(width: tagsViewWidth, height: sumHeight)
                 sumHeight = sumHeight > tagsViewMaxHeight ? tagsViewMaxHeight : sumHeight
@@ -235,9 +248,9 @@ extension LJTagsView {
         case .horizontal:
             
             if dealDataSource.count != 0 {
-                let lastPropertyModel = dealDataSource.last
-                let sumWidth = lastPropertyModel!.contentView.frame.maxX + tagsViewContentInset.right
-                sumHeight = tagH + tagsViewContentInset.bottom + tagsViewContentInset.top
+                let lastPropertyModel = filterMaxYModel(dataSource: dealDataSource, standardModel: dealDataSource.last!)
+                let sumWidth = lastPropertyModel.contentView.frame.maxX + tagsViewContentInset.right
+                sumHeight = lastPropertyModel.contentView.frame.maxY + tagsViewContentInset.bottom
                 scrollContentSize = CGSize(width: sumWidth, height: sumHeight)
                 viewContentSize = scrollContentSize
             }
@@ -302,6 +315,16 @@ extension LJTagsView {
         let size = model.titleLabel.text?.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)), options:[.usesLineFragmentOrigin,.usesFontLeading,.truncatesLastVisibleLine], attributes: [.font : model.titleLabel.font!], context: nil)
         return ceil(size?.height ?? 0.0)
     }
+    
+    // filter  - result return maxYModel
+    private func filterMaxYModel(dataSource:[TagsPropertyModel],standardModel:TagsPropertyModel) -> TagsPropertyModel {
+        let maxYModel = dataSource.filter { (m) -> Bool in
+            m.contentView.frame.minY == standardModel.contentView.frame.minY
+         }.max { (m1, m2) -> Bool in
+            m1.contentView.frame.maxY < m2.contentView.frame.maxY
+         }
+        return maxYModel!
+    }
 }
 
 //MARK: -- action
@@ -356,10 +379,9 @@ public class TagsPropertyModel: NSObject {
     /** image 和title 的间距 默认为8.0 ,设置image时生效*/
     public var contentPadding: CGFloat = 8.0
     /** 每个tag 最小高度 default is 0 */
-    public var minHeight: CGFloat  { 0 }
+    public var minHeight: CGFloat = 0.0
     /** 每个tag的边距 default is top:5,letf:5,bottom:5,right:5*/
     public var contentInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-    
     /** 装载view*/
     public var contentView = UIView()
     /** 标题*/
