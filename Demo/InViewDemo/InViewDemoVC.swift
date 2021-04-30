@@ -67,6 +67,10 @@ class InViewDemoVC: UIViewController {
         
 
     }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print("adasdasdas")
+    }
 }
 
 // tagsViewFrameLayout
@@ -101,7 +105,7 @@ extension InViewDemoVC {
 // tagsViewChangeScrollDirection
 extension InViewDemoVC {
     func setupTagsViewChangeScrollDirection() {
-        
+        tagsView.isUserInteractionEnabled = false;
         tagsView.modelDataSource = modelDataSource
         tagsView.tagsViewMinHeight = 40
         tagsView.scrollDirection = .vertical
@@ -162,7 +166,6 @@ extension InViewDemoVC {
             make.top.equalTo(tagsView.snp.bottom).offset(10)
             make.right.left.equalToSuperview().offset(0)
         }
-        
     }
 }
 

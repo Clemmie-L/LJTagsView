@@ -14,7 +14,6 @@ import UIKit
     @objc optional func tagsViewUpdateHeight(_ tagsView: LJTagsView, sumHeight: CGFloat) -> Void
     @objc optional func tagsViewTapAction(_ tagsView: LJTagsView) -> Void
     @objc optional func tagsViewItemTapAction(_ tagsView: LJTagsView, item: TagsPropertyModel,index: NSInteger) -> Void
-    
 }
 
 
@@ -144,7 +143,6 @@ extension LJTagsView {
             if  tagsViewDelegate?.responds(to: #selector(tagsViewDelegate?.tagsViewItemTapAction(_:item:index:))) ?? false {
                 let tap = UITapGestureRecognizer(target: self, action: #selector(contentViewTapAction(gestureRecongizer:)))
                 propertyModel.contentView.addGestureRecognizer(tap)
-                
             }
             
             propertyModel.contentView.tag = index
@@ -294,7 +292,10 @@ extension LJTagsView {
                 dealDataSource.append(propertyModel)
             }
         }else {
-            for (_,item) in modelDataSource.enumerated() {
+            for (index,item) in modelDataSource.enumerated() {
+                if let d = tagsViewDelegate  {
+                    d.tagsViewUpdatePropertyModel?(self, item: item, index: index)
+                }
                 scrollView.addSubview(item.contentView)
                 dealDataSource.append(item)
             }
@@ -321,7 +322,7 @@ extension LJTagsView {
         let maxYModel = dataSource.filter { (m) -> Bool in
             m.contentView.frame.minY == standardModel.contentView.frame.minY
          }.max { (m1, m2) -> Bool in
-            m1.contentView.frame.maxY < m2.contentView.frame.maxY
+            m1.contentView.frame.maxY <= m2.contentView.frame.maxY
          }
         return maxYModel!
     }
