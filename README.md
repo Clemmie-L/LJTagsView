@@ -66,3 +66,4 @@ A lightweight label class, adaptive height, width.
 ### 1.0.2 添加showline 属性 ：实现展开和收合功能
 ### 1.0.3 添加[TagsPropertyModel] 数据源，方便初始化
 ### 1.0.4 修复每个tag 的minHeight 不统一造成布局错乱
+### 1.0.6 适配OC；添加每个item的是否能点击属性:isEdit
