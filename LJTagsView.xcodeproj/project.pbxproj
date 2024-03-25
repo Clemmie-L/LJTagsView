@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0E5DD2B1261EF06900CA4B83 /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E5DD2AF261EF06900CA4B83 /* arrow@2x.png */; };
 		0E5DD2B8261FF0E000CA4B83 /* InViewDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5DD2B7261FF0E000CA4B83 /* InViewDemoVC.swift */; };
 		0E5DD2BC261FF10900CA4B83 /* InTabViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5DD2BB261FF10900CA4B83 /* InTabViewVC.swift */; };
 		0E5DD2C2261FFB2800CA4B83 /* ExamplesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5DD2C1261FFB2800CA4B83 /* ExamplesViewController.swift */; };
@@ -18,7 +17,6 @@
 		0E987B0925F8A29C00C33005 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E987B0725F8A29C00C33005 /* LaunchScreen.storyboard */; };
 		0E987B1725F8A3C100C33005 /* LJTagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E987B1625F8A3C100C33005 /* LJTagsView.swift */; };
 		0E987B1F25F8A44700C33005 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E987B1C25F8A44700C33005 /* TableViewCell.swift */; };
-		0E987B2725F8A5B000C33005 /* delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E987B2525F8A5B000C33005 /* delete@2x.png */; };
 		419C5E42C0C2762A0960F510 /* Pods_LJTagsView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4C55C498014608CE36BC2A0 /* Pods_LJTagsView.framework */; };
 /* End PBXBuildFile section */
 
@@ -212,8 +210,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E987B0925F8A29C00C33005 /* LaunchScreen.storyboard in Resources */,
-				0E987B2725F8A5B000C33005 /* delete@2x.png in Resources */,
-				0E5DD2B1261EF06900CA4B83 /* arrow@2x.png in Resources */,
 				0E987B0625F8A29C00C33005 /* Assets.xcassets in Resources */,
 				0E987B0425F8A29600C33005 /* Main.storyboard in Resources */,
 			);
