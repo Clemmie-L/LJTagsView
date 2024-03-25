@@ -60,8 +60,6 @@ Pod::Spec.new do |spec|
 
   spec.author             = { "Clemmie" => "379644692@qq.com" }
   # Or just: spec.author    = "Clemmie"
-  # spec.authors            = { "Clemmie" => "clemmie@imanagesystems.com" }
-  # spec.social_media_url   = "https://twitter.com/Clemmie"
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -100,7 +98,7 @@ Pod::Spec.new do |spec|
   #  Not including the public_header_files will make all headers public.
   #
 
-  spec.source_files  = "LJTagsView/LJTagsView/"
+  spec.source_files  = "LJTagsView/LJTagsView/*"
   # spec.exclude_files = "Classes/Exclude"
 
   # spec.public_header_files = "Classes/**/*.h"
