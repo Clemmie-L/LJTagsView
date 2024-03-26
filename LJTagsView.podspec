@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "LJTagsView"
-  spec.version      = "1.0.7"
+  spec.version      = "1.0.8"
   spec.summary      = "轻量级的标签库,使用简单"
 
   # This description is used to generate tags and improve search results.
@@ -99,7 +99,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.source_files  = "LJTagsView/LJTagsView/*.swift"
-  spec.resources     = "LJTagsView/LJTagsView/*.png"
+  spec.resources     = "LJTagsView/LJTagsView/*.bundle"
   
   # spec.exclude_files = "Classes/Exclude"
   # spec.public_header_files = "Classes/**/*.h"

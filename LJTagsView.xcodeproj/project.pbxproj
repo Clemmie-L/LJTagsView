@@ -18,10 +18,10 @@
 		0E987B1725F8A3C100C33005 /* LJTagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E987B1625F8A3C100C33005 /* LJTagsView.swift */; };
 		0E987B1F25F8A44700C33005 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E987B1C25F8A44700C33005 /* TableViewCell.swift */; };
 		419C5E42C0C2762A0960F510 /* Pods_LJTagsView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4C55C498014608CE36BC2A0 /* Pods_LJTagsView.framework */; };
+		A46EE38E2BB2775F006A4D66 /* LJTagsView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A46EE38D2BB2775F006A4D66 /* LJTagsView.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0E5DD2AF261EF06900CA4B83 /* arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow@2x.png"; sourceTree = "<group>"; };
 		0E5DD2B7261FF0E000CA4B83 /* InViewDemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InViewDemoVC.swift; sourceTree = "<group>"; };
 		0E5DD2BB261FF10900CA4B83 /* InTabViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InTabViewVC.swift; sourceTree = "<group>"; };
 		0E5DD2C1261FFB2800CA4B83 /* ExamplesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamplesViewController.swift; sourceTree = "<group>"; };
@@ -35,8 +35,8 @@
 		0E987B0A25F8A29C00C33005 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E987B1625F8A3C100C33005 /* LJTagsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LJTagsView.swift; sourceTree = "<group>"; };
 		0E987B1C25F8A44700C33005 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
-		0E987B2525F8A5B000C33005 /* delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@2x.png"; sourceTree = "<group>"; };
 		2CF8FC1A04DFE6F0E26B0BB8 /* Pods-LJTagsView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LJTagsView.release.xcconfig"; path = "Target Support Files/Pods-LJTagsView/Pods-LJTagsView.release.xcconfig"; sourceTree = "<group>"; };
+		A46EE38D2BB2775F006A4D66 /* LJTagsView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = LJTagsView.bundle; sourceTree = "<group>"; };
 		E51ADFF4041FB2F72EC48D35 /* Pods-LJTagsView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LJTagsView.debug.xcconfig"; path = "Target Support Files/Pods-LJTagsView/Pods-LJTagsView.debug.xcconfig"; sourceTree = "<group>"; };
 		F4C55C498014608CE36BC2A0 /* Pods_LJTagsView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LJTagsView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -125,9 +125,8 @@
 		0E987B1525F8A32300C33005 /* LJTagsView */ = {
 			isa = PBXGroup;
 			children = (
-				0E5DD2AF261EF06900CA4B83 /* arrow@2x.png */,
-				0E987B2525F8A5B000C33005 /* delete@2x.png */,
 				0E987B1625F8A3C100C33005 /* LJTagsView.swift */,
+				A46EE38D2BB2775F006A4D66 /* LJTagsView.bundle */,
 			);
 			path = LJTagsView;
 			sourceTree = "<group>";
@@ -210,6 +209,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E987B0925F8A29C00C33005 /* LaunchScreen.storyboard in Resources */,
+				A46EE38E2BB2775F006A4D66 /* LJTagsView.bundle in Resources */,
 				0E987B0625F8A29C00C33005 /* Assets.xcassets in Resources */,
 				0E987B0425F8A29600C33005 /* Main.storyboard in Resources */,
 			);

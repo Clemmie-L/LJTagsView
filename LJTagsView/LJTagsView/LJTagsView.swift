@@ -78,10 +78,11 @@ public class LJTagsView: UIView {
             }
         }
     }
-    /** showLine 大于0 的时候 显示*/
-    @objc public var arrowImageView: UIImageView = UIImageView.init(image: UIImage.init(named: "arrow")?.withRenderingMode(.alwaysOriginal))
-    /** 是否选中*/
     
+    /** showLine 大于0 的时候 显示*/
+    @objc public var arrowImageView: UIImageView = UIImageView.init(image: UIImage.imageFormBundle(with: "arrow")?.withRenderingMode(.alwaysOriginal))
+    
+    /** 是否选中*/
     @objc public var isSelect = false
     
     /** tagsView 宽度 default  is 屏幕宽度  */
@@ -457,3 +458,22 @@ public class TagsPropertyModel: NSObject {
     
 }
 
+extension Bundle {
+    
+    fileprivate static func getBundle(bundleName: String) -> Bundle {
+       let path = Bundle(for: LJTagsView.classForCoder()).path(forResource: bundleName, ofType: "bundle") ?? ""
+       let bundle = Bundle(path: path)
+       return bundle!
+    }
+}
+
+extension UIImage {
+    
+    fileprivate static func imageFormBundle(with imageName: String) -> UIImage? {
+        let bundle = Bundle.getBundle(bundleName: "LJTagsView")
+        let name = imageName + "@2x"
+        let path = bundle.path(forResource: name, ofType: "png") ?? ""
+        let image = UIImage.init(contentsOfFile: path)
+        return image
+    }
+}
